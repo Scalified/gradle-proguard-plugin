@@ -1,3 +1,7 @@
+# 0.0.5
+
+ProGuard task non cached execution
+
 # 0.0.4
 
 Gradle Publish Plugin Api changes

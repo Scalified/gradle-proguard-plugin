@@ -46,6 +46,7 @@ class ProGuardPlugin : Plugin<Project> {
 		val task = project.tasks.register<ProGuardTask>(PRO_GUARD) {
 			logger.debug("'$PRO_GUARD' task registered")
 			dependsOn(project.jarTask)
+			outputs.upToDateWhen { false }
 
 			configuration(extension.configuration.getOrElse(PRO_GUARD_CONFIGURATION))
 			injars(project.libsDir.resolve(project.jarArtifactName))
