@@ -24,8 +24,8 @@
 
 package com.scalified.plugins.gradle.proguard
 
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.provider.Property
-import java.io.File
 
 /**
  * @author shell
@@ -33,7 +33,7 @@ import java.io.File
  */
 interface ProGuardPluginExtension {
 
-	val configurations: Property<List<File>>
+	val configurations: ConfigurableFileCollection
 
 	val autoRun: Property<Boolean>
 

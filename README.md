@@ -57,7 +57,7 @@ Also, **proguard** task can be executed manually:
 **ProGuard Plugin** can be configured via Gradle extension
 ```groovy
 proguard {
-    configurations = file("proguard-rules.pro")
+	configurations.setFrom(files("$rootDir/proguard-root-rules.pro", "$projectDir/proguard-project-rules.pro"))
     // ...
 }
 ```

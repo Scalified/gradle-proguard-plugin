@@ -52,7 +52,7 @@ class ProGuardPlugin : Plugin<Project> {
 				dependsOn(project.dependingJarTasks)
 				outputs.upToDateWhen { false }
 
-				configuration(extension.configurations.getOrElse(project.proguardFiles))
+				configuration(extension.configurations.files.ifEmpty { project.proguardFiles })
 				injars(project.libsDir.resolve(project.jarArtifactName))
 				outjars(project.proguardDir.resolve(project.jarArtifactName))
 				libraryjars(
