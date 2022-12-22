@@ -1,3 +1,7 @@
+# 0.0.7
+
+[#2 Multiple configuration files support](https://github.com/Scalified/gradle-proguard-plugin/issues/2)
+
 # 0.0.6
 
 [#1 NPE: null cannot be cast to non-null type org.gradle.jvm.tasks.Jar](https://github.com/Scalified/gradle-proguard-plugin/issues/1)

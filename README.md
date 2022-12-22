@@ -57,16 +57,18 @@ Also, **proguard** task can be executed manually:
 **ProGuard Plugin** can be configured via Gradle extension
 ```groovy
 proguard {
-    configuration = "proguard-rules.pro"
+    configurations = file("proguard-rules.pro")
     // ...
 }
 ```
+
+By default, **ProGuard Plugin** will use **proguard-rules.pro** files located in the root directory and the project directory
 
 ### List of supported configuration parameters
 
 | Name                  | Description                                                                 |     Default Value      |
 |:----------------------|:----------------------------------------------------------------------------|:----------------------:|
-| **configuration**     | **ProGuard** configuration file name                                        | **proguard-rules.pro** |
+| **configurations**    | **ProGuard** configuration file name                                        | **proguard-rules.pro** |
 | **overwriteArtifact** | If enabled, jar artifact will be overwritten by **ProGuard** obfuscated jar |        **true**        |
 | **autoRun**           | If enabled, jar task will be finalized by proguard task                     |        **true**        |
 
