@@ -26,9 +26,11 @@ package com.scalified.plugins.gradle.proguard
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPlugin
 import org.gradle.internal.jvm.Jvm
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.register
+import org.gradle.kotlin.dsl.withType
 import org.slf4j.LoggerFactory
 import proguard.gradle.ProGuardTask
 
@@ -39,36 +41,39 @@ import proguard.gradle.ProGuardTask
 class ProGuardPlugin : Plugin<Project> {
 
 	private val logger = LoggerFactory.getLogger(ProGuardPlugin::class.java)
+
 	override fun apply(project: Project) {
-		val extension = project.extensions.create<ProGuardPluginExtension>(PRO_GUARD)
-		logger.debug("'$PRO_GUARD' extension created")
+		project.plugins.withType<JavaPlugin> {
+			val extension = project.extensions.create<ProGuardPluginExtension>(PRO_GUARD)
+			logger.debug("'$PRO_GUARD' extension created")
 
-		val task = project.tasks.register<ProGuardTask>(PRO_GUARD) {
-			logger.debug("'$PRO_GUARD' task registered")
-			dependsOn(project.jarTask)
-			outputs.upToDateWhen { false }
+			val task = project.tasks.register<ProGuardTask>(PRO_GUARD) {
+				logger.debug("'$PRO_GUARD' task registered")
+				dependsOn(project.dependingJarTasks)
+				outputs.upToDateWhen { false }
 
-			configuration(extension.configuration.getOrElse(PRO_GUARD_CONFIGURATION))
-			injars(project.libsDir.resolve(project.jarArtifactName))
-			outjars(project.proguardDir.resolve(project.jarArtifactName))
-			libraryjars(
-				mapOf("jarfilter" to "!**.jar", "filter" to "!module-info.class"),
-				"${Jvm.current().javaHome}/jmods/java.base.jmod"
-			)
-			libraryjars(project.runtimeClasspath.files)
-			if (extension.overwriteArtifact.getOrElse(true)) {
-				doLast {
-					logger.debug("Artifact overwrite enabled. Overwriting and cleaning up")
-					val sourceFile = project.proguardDir.resolve(project.jarArtifactName)
-					val destinationFile = project.libsDir.resolve(project.jarArtifactName)
-					sourceFile.copyTo(destinationFile, overwrite = true)
-					project.proguardDir.deleteRecursively()
+				configuration(extension.configuration.getOrElse(project.proguardFile.absolutePath))
+				injars(project.libsDir.resolve(project.jarArtifactName))
+				outjars(project.proguardDir.resolve(project.jarArtifactName))
+				libraryjars(
+					mapOf("jarfilter" to "!**.jar", "filter" to "!module-info.class"),
+					"${Jvm.current().javaHome}/jmods/java.base.jmod"
+				)
+				libraryjars(project.runtimeClasspath.files)
+				if (extension.overwriteArtifact.getOrElse(true)) {
+					doLast {
+						logger.debug("Artifact overwrite enabled. Overwriting and cleaning up")
+						val sourceFile = project.proguardDir.resolve(project.jarArtifactName)
+						val destinationFile = project.libsDir.resolve(project.jarArtifactName)
+						sourceFile.copyTo(destinationFile, overwrite = true)
+						project.proguardDir.deleteRecursively()
+					}
 				}
 			}
-		}
-		if (extension.autoRun.getOrElse(true)) {
-			logger.debug("Autorun after 'jar' task enabled")
-			project.jarTask.finalizedBy(task)
+			if (extension.autoRun.getOrElse(true)) {
+				logger.debug("Autorun after 'jar' task enabled")
+				project.jarTask.finalizedBy(task)
+			}
 		}
 	}
 

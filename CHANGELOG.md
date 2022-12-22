@@ -1,3 +1,7 @@
+# 0.0.6
+
+[#1 NPE: null cannot be cast to non-null type org.gradle.jvm.tasks.Jar](https://github.com/Scalified/gradle-proguard-plugin/issues/1)
+
 # 0.0.5
 
 ProGuard task non cached execution

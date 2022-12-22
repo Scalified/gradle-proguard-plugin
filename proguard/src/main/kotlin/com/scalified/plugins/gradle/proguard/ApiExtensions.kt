@@ -26,8 +26,10 @@ package com.scalified.plugins.gradle.proguard
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.jvm.tasks.Jar
 import java.io.File
+import java.util.*
 
 /**
  * @author shell
@@ -39,10 +41,23 @@ internal val Project.libsDir: File
 internal val Project.proguardDir: File
 	get() = libsDir.resolve("proguard")
 
+internal val Project.proguardFile: File
+	get() = Optional.of(projectDir.resolve(PRO_GUARD_CONFIGURATION))
+		.filter(File::exists)
+		.orElseGet { rootDir.resolve(PRO_GUARD_CONFIGURATION) }
+
 internal val Project.runtimeClasspath: Configuration
 	get() = configurations.findByName("runtimeClasspath")!!
 
+internal val Project.dependingJarTasks : List<Jar>
+	get() = configurations.flatMap(Configuration::getAllDependencies)
+		.filterIsInstance(ProjectDependency::class.java)
+		.map(ProjectDependency::getDependencyProject)
+		.flatMap(Project::getTasks)
+		.filterIsInstance(Jar::class.java)
+
 internal val Project.jarTask: Jar
 	get() = tasks.findByName("jar") as Jar
+
 internal val Project.jarArtifactName: String
 	get() = jarTask.archiveFileName.get()
