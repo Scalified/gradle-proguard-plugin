@@ -52,6 +52,15 @@ Also, **proguard** task can be executed manually:
 ./gradlew proguard
 ```
 
+### ProGuard Annotations
+
+[**ProGuard** annotations](https://github.com/Guardsquare/proguard/tree/master/annotations) supported out-of-the-box.
+Just add the **ProGuard** annotations dependency:
+
+```gradle
+compileOnly 'com.guardsquare:proguard-annotations:<version>'
+```
+
 ## Configuration
 
 **ProGuard Plugin** can be configured via Gradle extension

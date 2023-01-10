@@ -38,12 +38,15 @@ internal val Project.libsDir: File
 	get() = buildDir.resolve("libs")
 
 internal val Project.proguardDir: File
-	get() = libsDir.resolve("proguard")
+	get() = libsDir.resolve(PRO_GUARD)
 
 internal val Project.proguardFiles: List<File>
 	get() = listOf(rootDir, projectDir)
 		.map { it.resolve(PRO_GUARD_CONFIGURATION) }
 		.filter(File::exists)
+
+internal val Project.compileClasspath: Configuration
+	get() = configurations.findByName("compileClasspath")!!
 
 internal val Project.runtimeClasspath: Configuration
 	get() = configurations.findByName("runtimeClasspath")!!

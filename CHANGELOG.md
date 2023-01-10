@@ -1,3 +1,7 @@
+# 0.1.0
+
+[#4 Keep annotations](https://github.com/Scalified/gradle-proguard-plugin/issues/4)
+
 # 0.0.10
 
 [#3 Please use the ObjectFactory.listProperty() method to create a property of type List<T>](https://github.com/Scalified/gradle-proguard-plugin/issues/3)

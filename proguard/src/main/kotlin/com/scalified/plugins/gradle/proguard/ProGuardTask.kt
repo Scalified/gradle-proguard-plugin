@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Scalified
+ * Copyright (c) 2023 Scalified
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,22 @@
 
 package com.scalified.plugins.gradle.proguard
 
+import org.gradle.api.tasks.CacheableTask
+import proguard.ConfigurationParser
+import proguard.gradle.ProGuardTask
+
 /**
  * @author shell
- * @since 2022-12-10
+ * @since 2023-01-10
  */
-internal const val PRO_GUARD = "proguard"
+@CacheableTask
+abstract class ProGuardTask : ProGuardTask() {
 
-internal const val PRO_GUARD_DEFAULT_CONFIGURATION = "$PRO_GUARD-default-rules.pro"
+	init {
+		val configurationURL = this::class.java.classLoader.getResource(PRO_GUARD_DEFAULT_CONFIGURATION)
+		ConfigurationParser(configurationURL, System.getProperties()).use { parser ->
+			parser.parse(super.configuration)
+		}
+	}
 
-internal const val PRO_GUARD_CONFIGURATION = "$PRO_GUARD-rules.pro"
+}
