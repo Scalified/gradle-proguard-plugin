@@ -32,6 +32,8 @@ import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 import org.slf4j.LoggerFactory
+import proguard.annotation.Keep
+import java.io.File
 
 /**
  * @author shell
@@ -48,7 +50,7 @@ class ProGuardPlugin : Plugin<Project> {
 
 			val task = project.tasks.register<ProGuardTask>(PRO_GUARD) {
 				logger.debug("'$PRO_GUARD' task registered")
-				dependsOn(project.dependingJarTasks)
+				dependsOn(project.resolveDependingJarTasks())
 				outputs.upToDateWhen { false }
 
 				configuration(extension.configurations.files.ifEmpty { project.proguardFiles })
@@ -58,7 +60,8 @@ class ProGuardPlugin : Plugin<Project> {
 					mapOf("jarfilter" to "!**.jar", "filter" to "!module-info.class"),
 					"${Jvm.current().javaHome}/jmods/java.base.jmod"
 				)
-				libraryjars(project.compileClasspath.files + project.runtimeClasspath.files)
+				libraryjars(File(Keep::class.java.protectionDomain.codeSource.location.toURI()))
+				libraryjars(project.runtimeClasspath.files.distinctBy { it.name })
 				if (extension.overwriteArtifact.getOrElse(true)) {
 					doLast {
 						logger.debug("Artifact overwrite enabled. Overwriting and cleaning up")

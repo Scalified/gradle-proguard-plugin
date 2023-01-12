@@ -45,21 +45,30 @@ internal val Project.proguardFiles: List<File>
 		.map { it.resolve(PRO_GUARD_CONFIGURATION) }
 		.filter(File::exists)
 
-internal val Project.compileClasspath: Configuration
-	get() = configurations.findByName("compileClasspath")!!
-
 internal val Project.runtimeClasspath: Configuration
 	get() = configurations.findByName("runtimeClasspath")!!
 
-internal val Project.dependingJarTasks: List<Jar>
+internal val Project.dependingProjects: List<Project>
 	get() = configurations.flatMap(Configuration::getAllDependencies)
 		.filterIsInstance(ProjectDependency::class.java)
 		.map(ProjectDependency::getDependencyProject)
-		.flatMap(Project::getTasks)
-		.filterIsInstance(Jar::class.java)
+		.distinctBy(Project::getName)
 
 internal val Project.jarTask: Jar
 	get() = tasks.findByName("jar") as Jar
 
 internal val Project.jarArtifactName: String
 	get() = jarTask.archiveFileName.get()
+
+internal fun Project.resolveDependingJarTasks(): List<Jar> {
+	tailrec fun resolve(projects: List<Project>, acc: List<Project> = emptyList()): List<Project> {
+		if (projects.isEmpty()) return acc.distinctBy(Project::getName)
+		val first = projects.first()
+		val next = first.dependingProjects
+		return resolve(next + projects.subList(1, projects.size), acc + first)
+	}
+
+	return resolve(this.dependingProjects).flatMap(Project::getTasks)
+		.filterIsInstance(Jar::class.java)
+		.distinct()
+}

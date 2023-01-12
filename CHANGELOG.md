@@ -1,3 +1,7 @@
+# 0.1.1
+
+[#5 Jar Tasks Transitive Dependencies](https://github.com/Scalified/gradle-proguard-plugin/issues/5)
+
 # 0.1.0
 
 [#4 Keep annotations](https://github.com/Scalified/gradle-proguard-plugin/issues/4)
