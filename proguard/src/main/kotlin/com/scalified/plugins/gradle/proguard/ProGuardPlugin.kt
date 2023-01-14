@@ -61,7 +61,10 @@ class ProGuardPlugin : Plugin<Project> {
 					"${Jvm.current().javaHome}/jmods/java.base.jmod"
 				)
 				libraryjars(File(Keep::class.java.protectionDomain.codeSource.location.toURI()))
-				libraryjars(project.runtimeClasspath.files.distinctBy { it.name })
+				libraryjars(
+					mapOf("filter" to "!module-info.class"),
+					project.runtimeClasspath.files.distinctBy(File::getName)
+				)
 				if (extension.overwriteArtifact.getOrElse(true)) {
 					doLast {
 						logger.debug("Artifact overwrite enabled. Overwriting and cleaning up")
