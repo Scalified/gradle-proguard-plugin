@@ -1,3 +1,7 @@
+# 1.0.0
+
+**ProGuard** 7.3.1 Upgrade
+
 # 0.1.3
 
 [#6 Filter module-info.class from libraryjars](https://github.com/Scalified/gradle-proguard-plugin/issues/6)
