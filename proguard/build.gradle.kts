@@ -46,6 +46,6 @@ gradlePlugin {
 dependencies {
 	compileOnly(kotlin("gradle-plugin"))
 
-	implementation("com.guardsquare:proguard-gradle:7.3.1")
-	implementation("com.guardsquare:proguard-annotations:7.3.1")
+	implementation("com.guardsquare:proguard-gradle:7.3.2")
+	implementation("com.guardsquare:proguard-annotations:7.3.2")
 }

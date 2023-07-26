@@ -9,7 +9,7 @@
 
 ## Requirements
 
-* [Gradle 7+](https://gradle.org/)
+* [Gradle 8+](https://gradle.org/)
 * [JDK 11+](https://jdk.java.net/11/)
 
 ## Changelog
