@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-allprojects {
+subprojects {
 
     group = "com.scalified"
     version = "1.1.0"
