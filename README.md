@@ -10,40 +10,14 @@
 ## Requirements
 
 * [Gradle 8+](https://gradle.org/)
-* [JDK 11+](https://jdk.java.net/11/)
 
-## Changelog
-
-[Changelog](CHANGELOG.md)
-
-## Applying
-
-Build script snippet for plugins DSL for Gradle 2.1 and later:
+## Usage
 
 ```gradle
 plugins {
-  id "com.scalified.plugins.gradle.proguard" version "0.0.1"
+  id("com.scalified.plugins.gradle.proguard") version "$version"
 }
 ```
-
-Build script snippet for use in older Gradle versions or where dynamic configuration is required:
-
-```gradle
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "com.scalified:proguard:0.0.1"
-  }
-}
-
-apply plugin: "com.scalified.plugins.gradle.proguard"
-```
-
-## Usage
 
 By default, **ProGuardTask** will be automatically executed after **Jar** task. 
 Also, **proguard** task can be executed manually:
@@ -64,6 +38,7 @@ compileOnly 'com.guardsquare:proguard-annotations:<version>'
 ## Configuration
 
 **ProGuard Plugin** can be configured via Gradle extension
+
 ```groovy
 proguard {
 	configurations.setFrom(files("$rootDir/proguard-root-rules.pro", "$projectDir/proguard-project-rules.pro"))

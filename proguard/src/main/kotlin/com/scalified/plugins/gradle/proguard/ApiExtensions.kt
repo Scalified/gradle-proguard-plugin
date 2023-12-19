@@ -35,40 +35,40 @@ import java.io.File
  * @since 2022-12-08
  */
 internal val Project.libsDir: File
-	get() = buildDir.resolve("libs")
+    get() = layout.buildDirectory.dir("libs").get().asFile
 
 internal val Project.proguardDir: File
-	get() = libsDir.resolve(PRO_GUARD)
+    get() = libsDir.resolve(PRO_GUARD)
 
 internal val Project.proguardFiles: List<File>
-	get() = listOf(rootDir, projectDir)
-		.map { it.resolve(PRO_GUARD_CONFIGURATION) }
-		.filter(File::exists)
+    get() = listOf(rootDir, projectDir)
+        .map { it.resolve(PRO_GUARD_CONFIGURATION) }
+        .filter(File::exists)
 
 internal val Project.runtimeClasspath: Configuration
-	get() = configurations.findByName("runtimeClasspath")!!
+    get() = configurations.findByName("runtimeClasspath")!!
 
 internal val Project.dependingProjects: List<Project>
-	get() = configurations.flatMap(Configuration::getAllDependencies)
-		.filterIsInstance(ProjectDependency::class.java)
-		.map(ProjectDependency::getDependencyProject)
-		.distinctBy(Project::getName)
+    get() = configurations.flatMap(Configuration::getAllDependencies)
+        .filterIsInstance<ProjectDependency>()
+        .map(ProjectDependency::getDependencyProject)
+        .distinctBy(Project::getName)
 
 internal val Project.jarTask: Jar
-	get() = tasks.findByName("jar") as Jar
+    get() = tasks.findByName("jar") as Jar
 
 internal val Project.jarArtifactName: String
-	get() = jarTask.archiveFileName.get()
+    get() = jarTask.archiveFileName.get()
 
 internal fun Project.resolveDependingJarTasks(): List<Jar> {
-	tailrec fun resolve(projects: List<Project>, acc: List<Project> = emptyList()): List<Project> {
-		if (projects.isEmpty()) return acc.distinctBy(Project::getName)
-		val first = projects.first()
-		val next = first.dependingProjects
-		return resolve(next + projects.subList(1, projects.size), acc + first)
-	}
+    tailrec fun resolve(projects: List<Project>, acc: List<Project> = emptyList()): List<Project> {
+        if (projects.isEmpty()) return acc.distinctBy(Project::getName)
+        val first = projects.first()
+        val next = first.dependingProjects
+        return resolve(next + projects.subList(1, projects.size), acc + first)
+    }
 
-	return resolve(this.dependingProjects).flatMap(Project::getTasks)
-		.filterIsInstance(Jar::class.java)
-		.distinct()
+    return resolve(this.dependingProjects).flatMap(Project::getTasks)
+        .filterIsInstance<Jar>()
+        .distinct()
 }

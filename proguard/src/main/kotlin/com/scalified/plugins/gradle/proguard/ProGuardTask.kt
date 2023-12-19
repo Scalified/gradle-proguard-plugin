@@ -26,20 +26,19 @@ package com.scalified.plugins.gradle.proguard
 
 import org.gradle.api.tasks.CacheableTask
 import proguard.ConfigurationParser
-import proguard.gradle.ProGuardTask
 
 /**
  * @author shell
  * @since 2023-01-10
  */
 @CacheableTask
-abstract class ProGuardTask : ProGuardTask() {
+abstract class ProGuardTask : proguard.gradle.ProGuardTask() {
 
-	init {
-		val configurationURL = this::class.java.classLoader.getResource(PRO_GUARD_DEFAULT_CONFIGURATION)
-		ConfigurationParser(configurationURL, System.getProperties()).use { parser ->
-			parser.parse(super.configuration)
-		}
-	}
+    init {
+        val configurationURL = this::class.java.classLoader.getResource(PRO_GUARD_DEFAULT_CONFIGURATION)
+        ConfigurationParser(configurationURL, System.getProperties()).use { parser ->
+            parser.parse(super.configuration)
+        }
+    }
 
 }

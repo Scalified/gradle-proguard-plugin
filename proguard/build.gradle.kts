@@ -23,29 +23,32 @@
  *
  */
 plugins {
-	`kotlin-dsl`
+    `kotlin-dsl`
 
-	id("com.gradle.plugin-publish") version "1.1.0"
+    id("com.gradle.plugin-publish") version "1.2.1"
 }
 
+val proguardVersion = "7.4.1"
+
 gradlePlugin {
-	plugins {
-		create("ProGuard Plugin") {
-			id = "com.scalified.plugins.gradle.proguard"
-			displayName = "${project.properties["PROJECT_NAME"]}"
-			description = "${project.properties["PROJECT_DESCRIPTION"]}"
-			implementationClass = "com.scalified.plugins.gradle.proguard.ProGuardPlugin"
-			version = project.version
-			website.set("https://scalified.com/")
-			vcsUrl.set("${project.properties["PROJECT_URL"]}")
-			tags.set(listOf("proguard", "obfuscate"))
-		}
-	}
+    plugins {
+        @Suppress("UnstableApiUsage")
+        create("ProGuard Plugin") {
+            id = "com.scalified.plugins.gradle.proguard"
+            displayName = "${project.properties["PROJECT_NAME"]}"
+            description = "${project.properties["PROJECT_DESCRIPTION"]}"
+            implementationClass = "com.scalified.plugins.gradle.proguard.ProGuardPlugin"
+            version = project.version
+            website.set("https://scalified.com/")
+            vcsUrl.set("${project.properties["PROJECT_URL"]}")
+            tags.set(listOf("proguard", "obfuscate"))
+        }
+    }
 }
 
 dependencies {
-	compileOnly(kotlin("gradle-plugin"))
+    compileOnly(kotlin("gradle-plugin"))
 
-	implementation("com.guardsquare:proguard-gradle:7.3.2")
-	implementation("com.guardsquare:proguard-annotations:7.3.2")
+    implementation("com.guardsquare:proguard-gradle:$proguardVersion")
+    implementation("com.guardsquare:proguard-annotations:$proguardVersion")
 }

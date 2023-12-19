@@ -33,10 +33,10 @@ import org.gradle.api.provider.Property
  */
 interface ProGuardPluginExtension {
 
-	val configurations: ConfigurableFileCollection
+    val configurations: ConfigurableFileCollection
 
-	val autoRun: Property<Boolean>
+    val autoRun: Property<Boolean>
 
-	val overwriteArtifact: Property<Boolean>
+    val overwriteArtifact: Property<Boolean>
 
 }

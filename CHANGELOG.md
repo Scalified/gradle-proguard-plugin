@@ -1,3 +1,8 @@
+# 1.2.0
+
+* **ProGuard** 7.4.1 Upgrade
+* Minor code optimizations
+
 # 1.1.0
 
 **ProGuard** 7.3.2 Upgrade
