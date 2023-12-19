@@ -1,7 +1,7 @@
 # Gradle ProGuard Plugin
 
-[![Build Status](https://github.com/Scalified/gradle-proguard-plugin/actions/workflows/gradle.yml/badge.svg)](https://github.com/Scalified/gradle-proguard-plugin/actions)
-[![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v?label=Plugin&metadataUrl=https://plugins.gradle.org/m2/com/scalified/plugins/gradle/proguard/com.scalified.plugins.gradle.proguard.gradle.plugin/maven-metadata.xml)](https://plugins.gradle.org/plugin/com.scalified.plugins.gradle.proguard)
+[![Build Status](https://github.com/Scalified/gradle-proguard-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/Scalified/gradle-proguard-plugin/actions)
+[![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v?label=plugin&metadataUrl=https://plugins.gradle.org/m2/com/scalified/plugins/gradle/proguard/com.scalified.plugins.gradle.proguard.gradle.plugin/maven-metadata.xml)](https://plugins.gradle.org/plugin/com.scalified.plugins.gradle.proguard)
 
 ## Description
 
@@ -19,7 +19,7 @@ plugins {
 }
 ```
 
-By default, **ProGuardTask** will be automatically executed after **Jar** task. 
+By default, **ProGuardTask** will be automatically executed after **Jar** task.
 Also, **proguard** task can be executed manually:
 
 ```bash
@@ -41,7 +41,7 @@ compileOnly 'com.guardsquare:proguard-annotations:<version>'
 
 ```groovy
 proguard {
-	configurations.setFrom(files("$rootDir/proguard-root-rules.pro", "$projectDir/proguard-project-rules.pro"))
+    configurations.setFrom(files("$rootDir/proguard-root-rules.pro", "$projectDir/proguard-project-rules.pro"))
     // ...
 }
 ```
