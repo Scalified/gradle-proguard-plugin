@@ -1,3 +1,7 @@
+# 1.3.0
+
+* **ProGuard** 7.6.0 Upgrade
+
 # 1.2.0
 
 * **ProGuard** 7.4.1 Upgrade

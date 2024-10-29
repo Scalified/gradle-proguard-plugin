@@ -25,10 +25,8 @@
 plugins {
     `kotlin-dsl`
 
-    id("com.gradle.plugin-publish") version "1.2.1"
+    alias(libs.plugins.gradle.publish)
 }
-
-val proguardVersion = "7.4.1"
 
 gradlePlugin {
     plugins {
@@ -47,8 +45,5 @@ gradlePlugin {
 }
 
 dependencies {
-    compileOnly(kotlin("gradle-plugin"))
-
-    implementation("com.guardsquare:proguard-gradle:$proguardVersion")
-    implementation("com.guardsquare:proguard-annotations:$proguardVersion")
+    implementation(libs.bundles.proguard)
 }
