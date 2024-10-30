@@ -13,7 +13,7 @@
 
 ## Usage
 
-```gradle
+```kotlin
 plugins {
   id("com.scalified.plugins.gradle.proguard") version "$version"
 }
@@ -31,15 +31,15 @@ Also, **proguard** task can be executed manually:
 [**ProGuard** annotations](https://github.com/Guardsquare/proguard/tree/master/annotations) supported out-of-the-box.
 Just add the **ProGuard** annotations dependency:
 
-```gradle
-compileOnly 'com.guardsquare:proguard-annotations:<version>'
+```kotlin
+compileOnly("com.guardsquare:proguard-annotations:$version")
 ```
 
 ## Configuration
 
 **ProGuard Plugin** can be configured via Gradle extension
 
-```groovy
+```kotlin
 proguard {
     configurations.setFrom(files("$rootDir/proguard-root-rules.pro", "$projectDir/proguard-project-rules.pro"))
     // ...
