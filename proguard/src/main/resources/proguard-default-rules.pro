@@ -111,3 +111,8 @@
     public *** get*();
     public *** get*(int);
 }
+
+# Java Modularity Support
+-keep class module-info
+
+-keepattributes Module*

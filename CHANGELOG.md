@@ -1,3 +1,7 @@
+# 1.4.0
+
+* [#8 Java Modularity Support](https://github.com/Scalified/gradle-proguard-plugin/issues/8)
+
 # 1.3.0
 
 * **ProGuard** 7.6.0 Upgrade
