@@ -49,7 +49,7 @@ class ProGuardPlugin : Plugin<Project> {
                 logger.debug("'$PRO_GUARD' extension created")
                 overwriteArtifact.convention(true)
                 autoRun.convention(true)
-                logger.debug("'$PRO_GUARD' extension configured")
+                logger.debug("'{}' extension configured: {}", PRO_GUARD, this)
             }
 
             val task = project.tasks.register<ProGuardTask>(PRO_GUARD) {
