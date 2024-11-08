@@ -114,5 +114,6 @@
 
 # Java Modularity Support
 -keep class module-info
+-dontnote module-info
 
 -keepattributes Module*

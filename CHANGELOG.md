@@ -1,3 +1,7 @@
+# 1.4.1
+
+* [#9 Dont note missing module-info](https://github.com/Scalified/gradle-proguard-plugin/issues/9)
+
 # 1.4.0
 
 * [#8 Java Modularity Support](https://github.com/Scalified/gradle-proguard-plugin/issues/8)
