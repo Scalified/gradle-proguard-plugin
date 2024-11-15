@@ -1,3 +1,7 @@
+# 1.6.0
+
+* [#10 Refactoring](https://github.com/Scalified/gradle-proguard-plugin/issues/10)
+
 # 1.4.1
 
 * [#9 Dont note missing module-info](https://github.com/Scalified/gradle-proguard-plugin/issues/9)

@@ -27,7 +27,10 @@ package com.scalified.plugins.gradle.proguard
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ProjectDependency
+import org.gradle.api.tasks.TaskContainer
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.jvm.tasks.Jar
+import org.gradle.kotlin.dsl.named
 import java.io.File
 
 /**
@@ -46,7 +49,7 @@ internal val Project.proguardFiles: List<File>
         .filter(File::exists)
 
 internal val Project.runtimeClasspath: Configuration
-    get() = configurations.findByName("runtimeClasspath")!!
+    get() = configurations.getByName("runtimeClasspath")
 
 internal val Project.dependingProjects: List<Project>
     get() = configurations.flatMap(Configuration::getAllDependencies)
@@ -54,11 +57,8 @@ internal val Project.dependingProjects: List<Project>
         .map(ProjectDependency::getDependencyProject)
         .distinctBy(Project::getName)
 
-internal val Project.jarTask: Jar
-    get() = tasks.findByName("jar") as Jar
-
-internal val Project.jarArtifactName: String
-    get() = jarTask.archiveFileName.get()
+internal val TaskContainer.jar: TaskProvider<Jar>
+    get() = named<Jar>("jar")
 
 internal fun Project.resolveDependingJarTasks(): List<Jar> {
     tailrec fun resolve(projects: List<Project>, acc: List<Project> = emptyList()): List<Project> {

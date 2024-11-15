@@ -15,7 +15,7 @@
 
 ```kotlin
 plugins {
-  id("com.scalified.plugins.gradle.proguard") version "$version"
+    id("com.scalified.plugins.gradle.proguard") version "$version"
 }
 ```
 

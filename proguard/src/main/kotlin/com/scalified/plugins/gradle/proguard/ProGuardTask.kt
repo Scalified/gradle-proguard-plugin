@@ -35,6 +35,9 @@ import proguard.ConfigurationParser
 abstract class ProGuardTask : proguard.gradle.ProGuardTask() {
 
     init {
+        group = GROUP
+        description = DESCRIPTION
+
         val configurationURL = this::class.java.classLoader.getResource(PRO_GUARD_DEFAULT_CONFIGURATION)
         ConfigurationParser(configurationURL, System.getProperties()).use { parser ->
             parser.parse(super.configuration)

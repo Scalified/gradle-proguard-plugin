@@ -30,6 +30,10 @@ package com.scalified.plugins.gradle.proguard
  */
 internal const val PRO_GUARD = "proguard"
 
+internal const val GROUP = PRO_GUARD
+
+internal const val DESCRIPTION = "Obfuscates and optimizes Java code"
+
 internal const val PRO_GUARD_DEFAULT_CONFIGURATION = "$PRO_GUARD-default-rules.pro"
 
 internal const val PRO_GUARD_CONFIGURATION = "$PRO_GUARD-rules.pro"
