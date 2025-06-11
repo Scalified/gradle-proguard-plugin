@@ -54,7 +54,7 @@ internal val Project.runtimeClasspath: Configuration
 internal val Project.dependingProjects: List<Project>
     get() = configurations.flatMap(Configuration::getAllDependencies)
         .filterIsInstance<ProjectDependency>()
-        .map(ProjectDependency::getDependencyProject)
+        .map { projectDependency -> project.project(projectDependency.path) }
         .distinctBy(Project::getName)
 
 internal val TaskContainer.jar: TaskProvider<Jar>

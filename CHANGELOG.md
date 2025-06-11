@@ -1,3 +1,7 @@
+# 1.7.0
+
+[ProGuard 7.7.0](https://github.com/Scalified/gradle-proguard-plugin/issues/11)
+
 # 1.6.0
 
 * [#10 Refactoring](https://github.com/Scalified/gradle-proguard-plugin/issues/10)
